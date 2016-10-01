@@ -34,10 +34,10 @@ namespace SinglyLinkedLists
             get { return this.value; }
         }
 
-        public static bool operator <(SinglyLinkedListNode node2, SinglyLinkedListNode node1)
+        public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
         {
             // This implementation is provided for your convenience.
-            return node2.CompareTo(node1) < 0;
+            return node1.CompareTo(node2) < 0;
         }
 
         public static bool operator >(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
