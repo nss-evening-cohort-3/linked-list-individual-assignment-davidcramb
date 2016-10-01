@@ -27,17 +27,17 @@ namespace SinglyLinkedLists
 
             } //same as public string set_Next(string value) { this.next = value;}
         }
-
+        
         private string value;
         public string Value 
         {
             get { return this.value; }
         }
 
-        public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
+        public static bool operator <(SinglyLinkedListNode node2, SinglyLinkedListNode node1)
         {
             // This implementation is provided for your convenience.
-            return node1.CompareTo(node2) < 0;
+            return node2.CompareTo(node1) < 0;
         }
 
         public static bool operator >(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
@@ -55,34 +55,51 @@ namespace SinglyLinkedLists
             allNodes.Add(this);
         }
 
-        public override bool Equals(System.Object obj)
+        public override bool Equals(Object obj)
         {
             // If parameter is null return false.
-            if (obj == null)
+            if (obj == null || ! (obj is SinglyLinkedListNode))
             {
                 return false;
             }
-
             // If parameter cannot be cast to Point return false.
             SinglyLinkedListNode p = obj as SinglyLinkedListNode;
-            if ((System.Object)p == null)
+            if ((Object)p == null)
             {
                 return false;
             }
-
             // Return true if the fields match:
             return (value == p.value);
+        }
+        public override int GetHashCode()
+        {
+            return value.GetHashCode();
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
         public int CompareTo(Object obj)
         {
-            throw new NotImplementedException();
+            if (obj == null)
+            {
+                return 1;
+            }
+            SinglyLinkedListNode nextObject = obj as SinglyLinkedListNode;
+            if (nextObject != null)
+            {
+                //return this.value.CompareTo(nextObject.value);
+                return this.value.CompareTo(nextObject.value);
+            }
+            else throw new Exception("WHYYYYY?!");
         }
 
         public bool IsLast()
         {
-            throw new NotImplementedException();
+            var last = allNodes.LastOrDefault();
+            if (this == last)
+            {
+                return true;
+            }
+            else return false;
         }
 
         public override string ToString()

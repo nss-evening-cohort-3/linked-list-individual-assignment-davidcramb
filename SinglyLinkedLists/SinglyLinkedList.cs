@@ -11,6 +11,7 @@ namespace SinglyLinkedLists
         {
             // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
         }
+        List<string> List = new List<string>();
 
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
         public SinglyLinkedList(params object[] values)
@@ -37,7 +38,7 @@ namespace SinglyLinkedLists
 
         public void AddLast(string value)
         {
-            throw new NotImplementedException();
+           List.Add(value);
         }
 
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
@@ -53,7 +54,14 @@ namespace SinglyLinkedLists
 
         public string First()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return List.First();
+            }
+            catch (InvalidOperationException e)
+            {
+                return null;
+            }
         }
 
         public int IndexOf(string value)
