@@ -164,6 +164,8 @@ namespace UnitTestSinglyLinkedLists
             list.AddLast("bar");
             list.AddLast("grille");
             string[] expected = new string[] { "foo", "bar", "grille" };
+            //Console.WriteLine("actual: " + list.ToArray()[1]);
+            //Console.WriteLine("expected: " + expected[0]);
             CollectionAssert.AreEqual(expected, list.ToArray());
         }
 

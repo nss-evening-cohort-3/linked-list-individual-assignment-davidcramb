@@ -7,6 +7,7 @@ namespace SinglyLinkedLists
 {
     public class SinglyLinkedList
     {
+        private SinglyLinkedListNode Node;
         public SinglyLinkedList()
         {
             // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
@@ -44,12 +45,28 @@ namespace SinglyLinkedLists
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            throw new NotImplementedException();
+            return List.Count();
         }
 
         public string ElementAt(int index)
         {
-            throw new NotImplementedException();
+            if (!List.Any())
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            {
+                try
+                {
+                    return List.ElementAt(index);
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    return null;
+                }
+            }
+
+
         }
 
         public string First()
@@ -79,7 +96,7 @@ namespace SinglyLinkedLists
         // HINT 3: If you highlight code and right click, you can use the refactor menu to extract a method for you...
         public string Last()
         {
-            throw new NotImplementedException();
+            return List.LastOrDefault();
         }
 
         public void Remove(string value)
@@ -94,7 +111,34 @@ namespace SinglyLinkedLists
 
         public string[] ToArray()
         {
-            throw new NotImplementedException();
+            List<string> nodeListToArray = new List<string>();
+            //string[] nodeArray = new string[this.Count()];
+            foreach (var item in List)
+            {
+                //nodeArray[this.Count()-1] = item;
+                nodeListToArray.Add(item);
+            }
+            //return nodeArray;
+            return nodeListToArray.ToArray();
+        }
+
+        public override string ToString()
+        {
+            string str = "{ ";
+            if (!List.Any())
+            {
+                return "{ }";
+            }
+            else
+            {
+                foreach (var item in List)
+                {
+                    str += "\"" +item + "\", ";
+                }
+                str = str.Remove(str.LastIndexOf(','));
+                return str +  " }";
+            }
+            //else return "{ \"" + List[0].ToString() + "\" }";
         }
     }
 }
