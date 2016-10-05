@@ -23,12 +23,12 @@ namespace SinglyLinkedLists
             }
 
         }
-
+        
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
         public string this[int i]
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return List[i]; }
+            set { List[i] = value; }
         }
 
         public void AddAfter(string existingValue, string value)
@@ -95,12 +95,15 @@ namespace SinglyLinkedLists
 
         public int IndexOf(string value)
         {
-            throw new NotImplementedException();
+            
+            return List.IndexOf(value);
         }
 
         public bool IsSorted()
         {
-            throw new NotImplementedException();
+            List.Sort();
+            return true;
+           
         }
 
         // HINT 1: You can extract this functionality (finding the last item in the list) from a method you've already written!
@@ -113,7 +116,15 @@ namespace SinglyLinkedLists
 
         public void Remove(string value)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List.RemoveAt(List.IndexOf(value));
+            }
+            catch(ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("Node doesn't exist. Your list remains the same.");
+            }
+
         }
 
         public void Sort()
