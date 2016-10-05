@@ -29,12 +29,20 @@ namespace SinglyLinkedLists
 
         public void AddAfter(string existingValue, string value)
         {
-            throw new NotImplementedException();
+            int ValueIndex = List.FindIndex(x => x.Contains(existingValue));
+            if (ValueIndex == -1)
+            {
+                throw new ArgumentException(existingValue + " does not exist in the currently defined list.");
+            }
+            else
+            {
+                List.Insert(ValueIndex + 1, value);
+            }
         }
 
         public void AddFirst(string value)
         {
-            throw new NotImplementedException();
+            List.Insert(0, value);
         }
 
         public void AddLast(string value)
