@@ -7,6 +7,7 @@ namespace SinglyLinkedLists
 {
     public class SinglyLinkedList
     {
+        private SinglyLinkedListNode Node;
         public SinglyLinkedList()
         {
             // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
@@ -16,36 +17,47 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
         public SinglyLinkedList(params object[] values)
         {
-            throw new NotImplementedException();
-        }
+            foreach(string value in values)
+            {
+                List.Add(value);
+            }
 
+        }
+        
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
         public string this[int i]
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return List[i]; }
+            set { List[i] = value; }
         }
 
         public void AddAfter(string existingValue, string value)
         {
-            throw new NotImplementedException();
+            int ValueIndex = List.FindIndex(x => x.Contains(existingValue));
+            if (ValueIndex == -1)
+            {
+                throw new ArgumentException(existingValue + " does not exist in the currently defined list.");
+            }
+            else
+            {
+                List.Insert(ValueIndex + 1, value);
+            }
         }
 
         public void AddFirst(string value)
         {
-            throw new NotImplementedException();
+            List.Insert(0, value);
         }
 
         public void AddLast(string value)
         {
             List.Add(value);
-
         }
 
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            throw new NotImplementedException();
+            return List.Count();
         }
 
         public string ElementAt(int index)
@@ -60,21 +72,62 @@ namespace SinglyLinkedLists
                 return List[index];
             }
             else throw new IndexOutOfRangeException();
+            if (!List.Any())
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            {
+                try
+                {
+                    return List.ElementAt(index);
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    return null;
+                }
+            }
+
+
         }
 
         public string First()
         {
             return List.FirstOrDefault();
+            try
+            {
+                return List.First();
+            }
+            catch (InvalidOperationException e)
+            {
+                return null;
+            }
         }
 
         public int IndexOf(string value)
         {
-            throw new NotImplementedException();
+            
+            return List.IndexOf(value);
         }
 
         public bool IsSorted()
         {
-            throw new NotImplementedException();
+            if (!List.Any() || List.Count == 1)
+            {
+                return true;
+            }
+            else
+            {
+                for (int i = 0; i < List.Count() - 1; i++)
+                {
+                    if (List[i].CompareTo(List[i + 1]) < 0 || List[i].CompareTo(List[i +1]) == 0)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            
         }
 
         // HINT 1: You can extract this functionality (finding the last item in the list) from a method you've already written!
@@ -90,16 +143,51 @@ namespace SinglyLinkedLists
             {
                 return List.ElementAt(List.Count() - 1);
             }
+            return List.LastOrDefault();
         }
 
         public void Remove(string value)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List.RemoveAt(List.IndexOf(value));
+            }
+            catch(ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("Node doesn't exist. Your list remains the same.");
+            }
+
         }
 
         public void Sort()
         {
-            throw new NotImplementedException();
+            List<string> sortedList = new List<string>();
+
+            if (!List.Any() || List.Count() == 1)
+            {
+                List.ToArray();
+            }
+            else
+            {
+                while (!this.IsSorted())
+                {
+                   var this_node = Node;
+                    var next_node = this_node.Next;
+                    for (int i = 0; i < this.Count() -1; i++)
+                    {
+                        if (this_node.Value.CompareTo(next_node.Value) > 0)
+                        {
+                            var node_arranger = this_node.Next.Value;
+                            next_node.Value = this_node.Value;
+                            this_node.Value = node_arranger;
+                        }
+                        this_node = this_node.Next;
+                        next_node = next_node.Next;
+                    }
+
+                }
+            }
+            
         }
 
         public string[] ToArray()
@@ -121,29 +209,19 @@ namespace SinglyLinkedLists
         }
         public override string ToString()
         {
-            string returned_string = "";
-            if (List.Count() == 0)
+            string str = "{ ";
+            if (!List.Any())
             {
                 return "{ }";
             }
-            else if (List.Count() == 1)
-            {
-                return "{ \"" +List[0].ToString() +"\" }";
-            }
             else
             {
-                for (int i = 0; i <= List.Count() - 1; i++)
+                foreach (var item in List)
                 {
-                    if (i != List.Count()-1)
-                    {
-                        returned_string += "\"" + List[i].ToString() + "\", ";
-                    }
-                    if (i == List.Count() - 1)
-                    {
-                        returned_string += "\"" + List[i].ToString() + "\"";
-                    }
+                    str += "\"" +item + "\", ";
                 }
-                return "{ " + returned_string + " }";
+                str = str.Remove(str.LastIndexOf(','));
+                return str +  " }";
             }
         }
     }

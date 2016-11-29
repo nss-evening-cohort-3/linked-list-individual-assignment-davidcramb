@@ -22,16 +22,20 @@ namespace SinglyLinkedLists
                     throw new ArgumentException();
                 } else
                 {
-                    next = value;
+                    this.next = value;
                 }
 
             } //same as public string set_Next(string value) { this.next = value;}
         }
-
+        
         private string value;
         public string Value 
         {
             get { return this.value; }
+            set
+            {
+                this.value = value;
+            }
         }
 
         public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
@@ -55,23 +59,25 @@ namespace SinglyLinkedLists
             allNodes.Add(this);
         }
 
-        public override bool Equals(System.Object obj)
+        public override bool Equals(Object obj)
         {
             // If parameter is null return false.
-            if (obj == null)
+            if (obj == null || ! (obj is SinglyLinkedListNode))
             {
                 return false;
             }
-
             // If parameter cannot be cast to Point return false.
             SinglyLinkedListNode p = obj as SinglyLinkedListNode;
-            if ((System.Object)p == null)
+            if ((Object)p == null)
             {
                 return false;
             }
-
             // Return true if the fields match:
             return (value == p.value);
+        }
+        public override int GetHashCode()
+        {
+            return value.GetHashCode();
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
@@ -87,6 +93,16 @@ namespace SinglyLinkedLists
             {
                 throw new ArgumentException("Not a linked node");
             }
+            {
+                return 1;
+            }
+            SinglyLinkedListNode nextObject = obj as SinglyLinkedListNode;
+            if (nextObject != null)
+            {
+                //return this.value.CompareTo(nextObject.value);
+                return this.value.CompareTo(nextObject.value);
+            }
+            else throw new Exception("WHYYYYY?!");
         }
 
         public bool IsLast()

@@ -112,6 +112,7 @@ namespace UnitTestSinglyLinkedLists
             SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
             SinglyLinkedListNode node2 = new SinglyLinkedListNode("bar");
             Assert.IsTrue(node2 < node1);
+
         }
 
         [TestMethod]
